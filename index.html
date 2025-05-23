@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="./click&soluciona.png">
+  <title>Click & Soluciona</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('./fondo.jpg'); /* Puedes reemplazar esta URL */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px #00c3ff;
+      text-align: center;
+    }
+
+    .form-container img {
+      width: 120px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input, textarea {
+      background-color: #f0f0f0;
+    }
+
+    button {
+      background-color: #00c3ff;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #009ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <img src="./click&soluciona.png" alt="Click & Soluciona Logo" />
+    <form id="servicioForm">
+      <input type="text" name="nombre" placeholder="Tu nombre y apellido" required>
+      <input type="tel" name="telefono" placeholder="Tu teléfono" required>
+      <input type="email" name="email" placeholder="Tu correo" required>
+      <textarea name="servicio" placeholder="Describe el servicio solicitado" rows="4" required></textarea>
+      <button type="submit">Enviar solicitud</button>
+    </form>
+  </div>
+
+  <script>
+    (function() {
+      emailjs.init("51X9vl5ryI44Ska7B"); // Reemplaza por tu public key
+    })();
+
+    document.getElementById("servicioForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm("service_444alpq", "template_s9i9hbu", this)
+        .then(function() {
+          Swal.fire(
+            '¡Mensaje enviado!',
+            'Pronto estaremos contactándonos con usted.',
+            'success'
+          );
+          document.getElementById("servicioForm").reset();
+        }, function(error) {
+          Swal.fire(
+            'Error',
+            'No se pudo enviar el mensaje. Intente nuevamente.',
+            'error'
+          );
+          console.error(error);
+        });
+    });
+  </script>
+
+</body>
+</html>
